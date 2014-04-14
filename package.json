@@ -1,0 +1,16 @@
+{
+  "name": "arisJS-backend",
+  "version": "0.0.0",
+  "description": "",
+  "main": "arisJS-backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.0.0",
+    "mongoose": "^3.8.8",
+    "logfmt": "^1.1.2"
+  }
+}
