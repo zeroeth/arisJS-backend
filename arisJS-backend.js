@@ -41,8 +41,6 @@ var Scene = mongoose.model('EegEvent', SceneSchema);
 /* GET index */
 app.get('/scenes', function(req, res)
 {
-	console.log("INDEX", req.body);
-
 	// TODO Scope to game id
 	Scene.find({}, function (error, scenes)
 	{
@@ -53,8 +51,6 @@ app.get('/scenes', function(req, res)
 /* POST create */
 app.post('/scenes', function(req, res)
 {
-	console.log("CREATE", req.body);
-
 	var scene = new Scene();
 
 	scene.title = req.body.title
@@ -73,8 +69,6 @@ app.post('/scenes', function(req, res)
 /* PUT update */
 app.put('/scenes/:id', function(req, res)
 {
-	console.log("UPDATE", req.body);
-
 	Scene.findById(req.body._id, function (find_error, scene)
 	{
 		scene.title = req.body.title;
@@ -93,7 +87,6 @@ app.put('/scenes/:id', function(req, res)
 /* GET show */
 app.get('/scenes/:id', function(req, res)
 {
-	console.log("SHOW", req.body);
 });
 
 /* DELETE destroy */
