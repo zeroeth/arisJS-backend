@@ -1,15 +1,111 @@
-// web.js
-var express = require("express");
-var logfmt = require("logfmt");
+var express    = require("express");
+var cors       = require("cors");
+var logfmt     = require("logfmt");
+var mongoose   = require('mongoose');
+var bodyParser = require('body-parser');
+
+/* Debug */
+console.log("ENV", process.env);
+
+
+
+/* App Init */
 var app = express();
 
+app.use(cors());
+app.use(bodyParser());
 app.use(logfmt.requestLogger());
 
-app.get('/', function(req, res) {
-  res.send('Hello World!');
+mongoose.connect(process.env.MONGOLAB_URI);
+
+
+
+/* Models */
+
+var SceneSchema = mongoose.Schema(
+{
+	title:  String,
+	editor_x:  Number,
+	editor_y:  Number,
+	created_at: { type: Date, default: Date.now },
 });
 
-var port = Number(process.env.PORT || 5000);
-app.listen(port, function() {
+var Scene = mongoose.model('EegEvent', SceneSchema);
+
+// SceneObject
+
+
+
+/* Routes */
+
+/* GET index */
+app.get('/scenes', function(req, res)
+{
+	console.log("INDEX", req.body);
+
+	// TODO Scope to game id
+	Scene.find({}, function (error, scenes)
+	{
+		res.send(scenes);
+	});
+});
+
+/* POST create */
+app.post('/scenes', function(req, res)
+{
+	console.log("CREATE", req.body);
+
+	var scene = new Scene();
+
+	scene.title = req.body.title
+
+	scene.save(function (error, scene)
+	{
+		if (error) {
+			console.error(error.red);
+		}
+		else {
+			res.send(scene);
+		}
+	});
+});
+
+/* PUT update */
+app.put('/scenes/:id', function(req, res)
+{
+	console.log("UPDATE", req.body);
+
+	Scene.findById(req.body._id, function (find_error, scene)
+	{
+		scene.title = req.body.title;
+		scene.save(function (save_error)
+		{
+			if (save_error) {
+				console.log(save_error);
+			}
+			else {
+				res.send(scene);
+			}
+		});
+	});
+});
+
+/* GET show */
+app.get('/scenes/:id', function(req, res)
+{
+	console.log("SHOW", req.body);
+});
+
+/* DELETE destroy */
+app.delete('/scenes/:id', function(req, res)
+{
+});
+
+
+/* Start server */
+var port = Number(process.env.PORT);
+
+app.listen(port, function()
+{
   console.log("Listening on " + port);
 });
