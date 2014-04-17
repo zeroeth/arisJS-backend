@@ -1,0 +1,36 @@
+var Character = require('../models/character');
+
+var CharactersController = function(app)
+{
+	app.get('/characters', function(req, res)
+	{
+		Character.find({game_id: req.query.game_id}, function (error, characters)
+		{
+			res.send(characters);
+		});
+	});
+
+	app.post('/characters', function(req, res)
+	{
+		var character = new Character();
+
+		character.title   = req.body.name
+		character.game_id = req.body.game_id
+
+		character.save(function (error, character)
+		{
+			if (error) {
+				console.error(error.red);
+			}
+			else {
+				res.send(character);
+			}
+		});		
+	});
+
+	app.put('/characters/:id', function(req, res)
+	{
+	});
+}
+
+module.exports = CharactersController;
