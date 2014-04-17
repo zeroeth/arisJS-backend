@@ -6,7 +6,7 @@ var ScenesController = function(app)
 	app.get('/scenes', function(req, res)
 	{
 		// TODO Scope to game id
-		Scene.find({}, function (error, scenes)
+		Scene.find({game_id: req.query.game_id}, function (error, scenes)
 		{
 			res.send(scenes);
 		});
@@ -17,7 +17,9 @@ var ScenesController = function(app)
 	{
 		var scene = new Scene();
 
-		scene.title = req.body.title
+		console.log("SCENE", req.body);
+		scene.title   = req.body.title
+		scene.game_id = req.body.game_id
 
 		scene.save(function (error, scene)
 		{
@@ -33,7 +35,7 @@ var ScenesController = function(app)
 	/* PUT update */
 	app.put('/scenes/:id', function(req, res)
 	{
-		Scene.findById(req.body._id, function (find_error, scene)
+		Scene.findById(req.params.id, function (find_error, scene)
 		{
 			scene.title = req.body.title;
 			scene.save(function (save_error)

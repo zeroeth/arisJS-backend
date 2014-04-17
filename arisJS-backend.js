@@ -8,14 +8,11 @@ var mongoose   = require('mongoose');
 var bodyParser = require('body-parser');
 
 
-/* Models */
-var Scene = require('./models/scene');
-
-
 /* Routes */
 
-var ScenesController = require('./controllers/scenes');
-
+var             ScenesController = require('./controllers/scenes');
+var         CharactersController = require('./controllers/characters');
+var CharacterInstancesController = require('./controllers/character_instances');
 
 
 /* App Init */
@@ -28,11 +25,11 @@ app.use(logfmt.requestLogger());
 mongoose.connect(process.env.MONGOLAB_URI);
 
 
-
 /* Routes */
 
-var scenes_controller = new ScenesController(app);
-
+var              scenes_controller = new ScenesController(app);
+var          characters_controller = new CharactersController(app);
+var character_instances_controller = new CharacterInstancesController(app);
 
 
 /* Start server */
