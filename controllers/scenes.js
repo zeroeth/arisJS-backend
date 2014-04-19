@@ -5,19 +5,18 @@ var ScenesController = function(app)
 	/* GET index */
 	app.get('/scenes', function(req, res)
 	{
-		// TODO Scope to game id
 		Scene.find({game_id: req.query.game_id}, function (error, scenes)
 		{
 			res.send(scenes);
 		});
 	});
 
+
 	/* POST create */
 	app.post('/scenes', function(req, res)
 	{
 		var scene = new Scene();
 
-		console.log("SCENE", req.body);
 		scene.title   = req.body.title
 		scene.game_id = req.body.game_id
 
@@ -32,12 +31,14 @@ var ScenesController = function(app)
 		});
 	});
 
+
 	/* PUT update */
 	app.put('/scenes/:id', function(req, res)
 	{
 		Scene.findById(req.params.id, function (find_error, scene)
 		{
 			scene.title = req.body.title;
+
 			scene.save(function (save_error)
 			{
 				if (save_error) {
@@ -49,6 +50,7 @@ var ScenesController = function(app)
 			});
 		});
 	});
+
 
 	/* GET show */
 	app.get('/scenes/:id', function(req, res)

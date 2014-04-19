@@ -1,2 +1,13 @@
+# node js
 node_modules
+
+# heroku foreman
 .env
+
+# vim ignore
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~

@@ -10,11 +10,12 @@ var CharactersController = function(app)
 		});
 	});
 
+
 	app.post('/characters', function(req, res)
 	{
 		var character = new Character();
 
-		character.title   = req.body.name
+		character.name    = req.body.name
 		character.game_id = req.body.game_id
 
 		character.save(function (error, character)
@@ -28,8 +29,23 @@ var CharactersController = function(app)
 		});		
 	});
 
+
 	app.put('/characters/:id', function(req, res)
 	{
+		Character.findById(req.params.id, function (find_error, character)
+		{
+			character.name    = req.body.name
+
+			character.save(function (save_error)
+			{
+				if (save_error) {
+					console.log(save_error);
+				}
+				else {
+					res.send(character);
+				}
+			});
+		});
 	});
 }
 
