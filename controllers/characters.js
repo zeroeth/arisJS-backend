@@ -15,8 +15,8 @@ var CharactersController = function(app)
 	{
 		var character = new Character();
 
-		character.name    = req.body.name
-		character.game_id = req.body.game_id
+		character.name    = req.body.name;
+		character.game_id = req.body.game_id;
 
 		character.save(function (error, character)
 		{
@@ -34,7 +34,7 @@ var CharactersController = function(app)
 	{
 		Character.findById(req.params.id, function (find_error, character)
 		{
-			character.name    = req.body.name
+			character.name    = req.body.name;
 
 			character.save(function (save_error)
 			{

@@ -2,8 +2,11 @@ var mongoose = require('mongoose');
 
 var CharacterInstanceSchema = mongoose.Schema(
 {
-	triggered_by_id: Number,
-	character_id: Number,
+	triggered_by_id: String,
+	character_id: String,
+	character_name: String,
+	//_character: { type: String, ref: 'Character' },
+	scene_id: String,
 	description: String,
 	editor_x:  Number,
 	editor_y:  Number,
